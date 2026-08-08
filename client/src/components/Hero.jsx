@@ -35,20 +35,19 @@ export default function Hero() {
         </div>
 
         <div className="h-[600px]">
-          <Canvas camera={{ position: [0, 1, 5], fov: 45 }}>
-            <ambientLight intensity={1.2} />
-            <directionalLight position={[5, 5, 5]} intensity={2} />
+          <Canvas camera={{ position: [0, 0, 3], fov: 50 }}>
+          <ambientLight intensity={2} />
+          <directionalLight position={[5, 5, 5]} intensity={3} />
 
+          <axesHelper args={[2]} />
+          <gridHelper args={[10, 10]} />
+
+          <Suspense fallback={null}>
             <CoffeeCup />
+          </Suspense>
 
-            <Environment preset="studio" />
-
-            <OrbitControls
-              enableZoom={false}
-              autoRotate
-              autoRotateSpeed={1}
-            />
-          </Canvas>
+          <OrbitControls enableZoom autoRotate />
+        </Canvas>
         </div>
       </div>
     </section>

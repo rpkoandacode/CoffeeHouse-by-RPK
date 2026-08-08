@@ -1,13 +1,14 @@
-import { useGLTF, Float } from '@react-three/drei';
+import { useGLTF } from '@react-three/drei';
 
 export default function CoffeeCup() {
   const { scene } = useGLTF('/models/coffee-cup.glb');
 
   return (
-    <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.5}>
-      <primitive object={scene} scale={2.5} />
-    </Float>
+    <primitive
+      object={scene}
+      scale={0.01}
+      position={[0, 0, 0]}
+      rotation={[0, 0, 0]}
+    />
   );
 }
-
-useGLTF.preload('/models/coffeecup.glb');
