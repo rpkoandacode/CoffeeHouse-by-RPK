@@ -4,6 +4,8 @@
   box-sizing: border-box;
 }
 
+@import "tailwindcss";
+
 body {
   background: #f8f5f2;
   color: #2d1b16;
