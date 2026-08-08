@@ -4,16 +4,6 @@ export default function CoffeeCup() {
   return (
     <Float speed={1.2} rotationIntensity={0.15} floatIntensity={0.25}>
       <group rotation={[0.15, Math.PI / 5, 0]}>
-        {/* Ground shadow */}
-        <mesh
-          rotation={[-Math.PI / 2, 0, 0]}
-          position={[0, -0.78, 0]}
-          receiveShadow
-        >
-          <circleGeometry args={[1.8, 64]} />
-          <shadowMaterial opacity={0.25} />
-        </mesh>
-
         {/* Saucer */}
         <mesh position={[0, -0.72, 0]} receiveShadow>
           <cylinderGeometry args={[1.15, 1.05, 0.08, 64]} />

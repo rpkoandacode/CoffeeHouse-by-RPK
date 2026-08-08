@@ -35,26 +35,10 @@ export default function Hero() {
         </div>
 
         <div className="h-[600px]">
-          <Canvas shadows camera={{ position: [0, 0.3, 4], fov: 35 }}>
-  <color attach="background" args={["#2D1B16"]} />
-
-  <ambientLight intensity={0.4} />
-
-  <directionalLight
-    position={[3, 5, 4]}
-    intensity={2.5}
-    castShadow
-  />
-
-  <pointLight
-    position={[-3, 2, 2]}
-    intensity={1}
-    color="#F8D7A3"
-  />
-
+          <Canvas camera={{ position: [0, 0.3, 4], fov: 35 }}>
+  <ambientLight intensity={0.8} />
+  <directionalLight position={[3, 5, 4]} intensity={2} />
   <CoffeeCup />
-
-  <Environment preset="studio" />
 </Canvas>
         </div>
       </div>
