@@ -1,8 +1,11 @@
+import Navbar from '../components/Navbar';
+import Hero from '../components/Hero';
+
 export default function Home() {
   return (
     <div>
-      <h1>Coffee House</h1>
-      <p>Brew Happiness, One Cup at a Time.</p>
+      <Navbar />
+      <Hero />
     </div>
   );
 }
