@@ -1,12 +1,14 @@
-import heroImg from '../assets/hero.png';
+import { Canvas } from '@react-three/fiber';
+import { Environment, OrbitControls } from '@react-three/drei';
+import CoffeeCup from './CoffeeCup';
 
 export default function Hero() {
   return (
-    <section className="relative h-screen bg-[#2D1B16] overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-[#2D1B16] via-[#3E2723] to-[#6F4E37]" />
+    <section className="relative h-screen bg-[#1f140f] overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-[#1f140f] via-[#2D1B16] to-[#4E342E]" />
 
-      <div className="relative z-10 max-w-6xl mx-auto h-full flex items-center justify-between px-8">
-        <div className="max-w-xl text-white">
+      <div className="relative z-10 max-w-7xl mx-auto h-full grid md:grid-cols-2 items-center px-8">
+        <div className="text-white">
           <p className="text-yellow-400 uppercase tracking-[0.3em] mb-4">
             Premium Coffee Experience
           </p>
@@ -17,7 +19,7 @@ export default function Hero() {
             One Cup at a Time.
           </h1>
 
-          <p className="text-lg text-white/80 mb-8">
+          <p className="text-lg text-white/80 mb-8 max-w-lg">
             Freshly brewed coffee crafted with passion and served with warmth.
           </p>
 
@@ -32,12 +34,21 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="hidden md:block">
-          <img
-            src={heroImg}
-            alt="Coffee"
-            className="w-[500px] drop-shadow-2xl"
-          />
+        <div className="h-[600px]">
+          <Canvas camera={{ position: [0, 1, 5], fov: 45 }}>
+            <ambientLight intensity={1.2} />
+            <directionalLight position={[5, 5, 5]} intensity={2} />
+
+            <CoffeeCup />
+
+            <Environment preset="studio" />
+
+            <OrbitControls
+              enableZoom={false}
+              autoRotate
+              autoRotateSpeed={1}
+            />
+          </Canvas>
         </div>
       </div>
     </section>
