@@ -1,9 +1,19 @@
 import { Float } from '@react-three/drei';
+import { useFrame } from '@react-three/fiber';
+import { useRef } from 'react';
 
 export default function CoffeeCup() {
+  const group = useRef();
+
+  useFrame((state) => {
+    if (group.current) {
+      group.current.rotation.y = state.clock.elapsedTime * 0.3;
+    }
+  });
+
   return (
-    <Float speed={1.2} rotationIntensity={0.15} floatIntensity={0.25}>
-      <group rotation={[0.15, Math.PI / 5, 0]}>
+    <Float speed={1.2} floatIntensity={0.25}>
+      <group ref={group} rotation={[0.15, Math.PI / 5, 0]}>
         {/* Saucer */}
         <mesh position={[0, -0.72, 0]} receiveShadow>
           <cylinderGeometry args={[1.15, 1.05, 0.08, 64]} />
