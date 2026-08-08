@@ -17,10 +17,7 @@ export default function CoffeeCup() {
         {/* Saucer */}
         <mesh position={[0, -0.72, 0]} receiveShadow>
           <cylinderGeometry args={[1.15, 1.05, 0.08, 64]} />
-          <meshStandardMaterial
-            color="#F0E8DD"
-            roughness={0.35}
-          />
+          <meshStandardMaterial color="#F0E8DD" roughness={0.35} />
         </mesh>
 
         {/* Cup body */}
@@ -36,10 +33,7 @@ export default function CoffeeCup() {
         {/* Coffee */}
         <mesh position={[0, 0.56, 0]}>
           <cylinderGeometry args={[0.60, 0.60, 0.04, 64]} />
-          <meshStandardMaterial
-            color="#3B2416"
-            roughness={0.95}
-          />
+          <meshStandardMaterial color="#3B2416" roughness={0.95} />
         </mesh>
 
         {/* Rim */}
@@ -48,10 +42,7 @@ export default function CoffeeCup() {
           rotation={[Math.PI / 2, 0, 0]}
         >
           <torusGeometry args={[0.63, 0.02, 16, 64]} />
-          <meshStandardMaterial
-            color="#E8DED3"
-            roughness={0.2}
-          />
+          <meshStandardMaterial color="#E8DED3" roughness={0.2} />
         </mesh>
 
         {/* Handle */}
