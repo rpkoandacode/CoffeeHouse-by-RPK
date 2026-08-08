@@ -35,24 +35,27 @@ export default function Hero() {
         </div>
 
         <div className="h-[600px]">
-          <Canvas shadows camera={{ position: [0, 1, 4], fov: 40 }}>
-            <ambientLight intensity={0.8} />
-            <directionalLight
-              position={[5, 5, 5]}
-              intensity={2}
-              castShadow
-            />
+          <Canvas shadows camera={{ position: [0, 0.3, 4], fov: 35 }}>
+  <color attach="background" args={["#2D1B16"]} />
 
-            <CoffeeCup />
+  <ambientLight intensity={0.4} />
 
-            <Environment preset="studio" />
+  <directionalLight
+    position={[3, 5, 4]}
+    intensity={2.5}
+    castShadow
+  />
 
-            <OrbitControls
-              enableZoom={false}
-              autoRotate
-              autoRotateSpeed={0.5}
-            />
-          </Canvas>
+  <pointLight
+    position={[-3, 2, 2]}
+    intensity={1}
+    color="#F8D7A3"
+  />
+
+  <CoffeeCup />
+
+  <Environment preset="studio" />
+</Canvas>
         </div>
       </div>
     </section>

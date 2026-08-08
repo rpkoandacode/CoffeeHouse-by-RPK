@@ -4,11 +4,25 @@ export default function CoffeeCup() {
   return (
     <Float speed={1.2} rotationIntensity={0.15} floatIntensity={0.25}>
       <group rotation={[0.15, Math.PI / 5, 0]}>
+        
         {/* Saucer */}
-        <mesh position={[0, -0.72, 0]} receiveShadow>
-          <cylinderGeometry args={[1.15, 1.05, 0.08, 64]} />
-          <meshStandardMaterial color="#F0E8DD" roughness={0.35} />
-        </mesh>
+<mesh position={[0, -0.72, 0]} receiveShadow>
+  <cylinderGeometry args={[1.15, 1.05, 0.08, 64]} />
+  <meshStandardMaterial
+    color="#F0E8DD"
+    roughness={0.35}
+  />
+</mesh>
+
+{/* Ground shadow */}
+<mesh
+  rotation={[-Math.PI / 2, 0, 0]}
+  position={[0, -0.76, 0]}
+  receiveShadow
+>
+  <circleGeometry args={[1.8, 64]} />
+  <shadowMaterial opacity={0.25} />
+</mesh>
 
         {/* Cup body */}
         <mesh castShadow receiveShadow>
@@ -40,10 +54,10 @@ export default function CoffeeCup() {
         >
           <torusGeometry args={[0.23, 0.045, 16, 64]} />
           <meshStandardMaterial
-            color="#F5F1EA"
-            roughness={0.25}
-            metalness={0.05}
-          />
+            color="#F3E9DC"
+            roughness={0.18}
+            metalness={0.02}
+/>
         </mesh>
       </group>
     </Float>
