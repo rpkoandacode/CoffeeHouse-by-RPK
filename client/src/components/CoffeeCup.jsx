@@ -6,14 +6,20 @@ export default function CoffeeCup() {
   const group = useRef();
 
   useFrame((state) => {
-    if (group.current) {
-      group.current.rotation.y = state.clock.elapsedTime * 0.3;
-    }
+    if (!group.current) return;
+
+    // Mouse position (-1 to 1)
+    const x = state.pointer.x;
+    const y = state.pointer.y;
+
+    // Smooth tilt toward the mouse
+    group.current.rotation.y += (x * 0.35 - group.current.rotation.y) * 0.08;
+    group.current.rotation.x += (-y * 0.2 - group.current.rotation.x) * 0.08;
   });
 
   return (
-    <Float speed={1.2} floatIntensity={0.25}>
-      <group ref={group} rotation={[0.15, Math.PI / 5, 0]}>
+    <Float speed={1.2} floatIntensity={0.25} rotationIntensity={0}>
+      <group ref={group}>
         {/* Saucer */}
         <mesh position={[0, -0.72, 0]} receiveShadow>
           <cylinderGeometry args={[1.15, 1.05, 0.08, 64]} />
