@@ -1,8 +1,8 @@
-import { Canvas, useFrame } from '@react-three/fiber';
+import { useFrame } from '@react-three/fiber';
 import { useRef } from 'react';
 import * as THREE from 'three';
 
-function CoffeeCup() {
+export default function CoffeeCup() {
   const group = useRef();
 
   useFrame((state) => {
@@ -11,7 +11,6 @@ function CoffeeCup() {
     const x = state.pointer.x;
     const y = state.pointer.y;
 
-    // Smooth realistic mouse-follow
     group.current.rotation.y = THREE.MathUtils.lerp(
       group.current.rotation.y,
       x * 0.7,
@@ -33,37 +32,41 @@ function CoffeeCup() {
         <meshStandardMaterial color="#EFE3D2" roughness={0.35} />
       </mesh>
 
-      {/* Cup body */}
+      {/* Cup outer wall (hollow, no top cap) */}
       <mesh>
-        <cylinderGeometry args={[0.46, 0.40, 0.85, 64]} />
+        <cylinderGeometry args={[0.46, 0.40, 0.85, 64, 1, true]} />
         <meshStandardMaterial
           color="#F6E9D8"
-          roughness={0.25}
-          metalness={0.05}
+          roughness={0.18}
+          metalness={0.02}
+          side={THREE.DoubleSide}
         />
+      </mesh>
+
+      {/* Cup bottom cap */}
+      <mesh position={[0, -0.425, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+        <circleGeometry args={[0.4, 64]} />
+        <meshStandardMaterial color="#F6E9D8" roughness={0.18} metalness={0.02} />
+      </mesh>
+
+      {/* Cup inner wall so you don't see through to the outside above the liquid */}
+      <mesh>
+        <cylinderGeometry args={[0.455, 0.395, 0.85, 64, 1, true]} />
+        <meshStandardMaterial color="#3A2A1E" roughness={0.3} side={THREE.BackSide} />
       </mesh>
 
       {/* Latte coffee */}
       <mesh position={[0, 0.39, 0]}>
-        <cylinderGeometry args={[0.39, 0.39, 0.06, 64]} />
-        <meshStandardMaterial
-          color="#8A5A3B"
-          roughness={0.8}
-          metalness={0.1}
-        />
+        <cylinderGeometry args={[0.39, 0.39, 0.035, 64]} />
+        <meshStandardMaterial color="#8A5A3B" roughness={0.8} />
       </mesh>
 
       {/* Latte foam */}
-      <mesh position={[0, 0.405, 0]}>
-        <cylinderGeometry args={[0.33, 0.33, 0.015, 64]} />
+      <mesh position={[0, 0.408, 0]}>
+        <cylinderGeometry args={[0.36, 0.36, 0.01, 64]} />
         <meshStandardMaterial color="#F8F2E8" roughness={0.95} />
       </mesh>
 
-      {/* Latte art */}
-      <mesh position={[0, 0.412, 0.01]} rotation={[-0.2, 0, 0]}>
-        <torusGeometry args={[0.09, 0.015, 16, 64, Math.PI]} />
-        <meshStandardMaterial color="#E8D9C3" roughness={0.9} />
-      </mesh>
 
       {/* Rim */}
       <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, 0.43, 0]}>
@@ -71,24 +74,11 @@ function CoffeeCup() {
         <meshStandardMaterial color="#E9DCCB" roughness={0.2} />
       </mesh>
 
-      {/* Handle */}
+      {/* Realistic handle */}
       <mesh position={[0.48, 0.02, 0]} rotation={[0, 0, Math.PI / 2]}>
         <torusGeometry args={[0.15, 0.03, 16, 64]} />
-        <meshStandardMaterial color="#F6E9D8" roughness={0.25} />
+        <meshStandardMaterial color="#F6E9D8" roughness={0.18} />
       </mesh>
     </group>
-  );
-}
-
-export default function Scene() {
-  return (
-    <Canvas camera={{ position: [0, 1.5, 3] }}>
-      {/* Lighting */}
-      <ambientLight intensity={0.6} />
-      <directionalLight position={[3, 5, 2]} intensity={1.2} />
-      <pointLight position={[-3, -2, -3]} intensity={0.5} />
-
-      <CoffeeCup />
-    </Canvas>
   );
 }

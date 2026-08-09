@@ -20,8 +20,27 @@ a {
 
 button {
   font-family: inherit;
+
 }
 
 html {
   scroll-behavior: smooth;
 }
+
+.hero-text {
+  margin-left: 3rem;
+}
+
+@media (min-width: 768px) {
+  .hero-text {
+    margin-left: 6rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-text {
+    margin-left: 9rem;
+  }
+}
+
+
