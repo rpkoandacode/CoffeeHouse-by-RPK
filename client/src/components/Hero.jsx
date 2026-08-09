@@ -3,16 +3,14 @@ import CoffeeCup from './CoffeeCup';
 
 export default function Hero() {
   return (
-    <section className="relative h-screen overflow-hidden bg-gradient-to-br from-[#1a120b] via-[#2b1d14] to-[#120b08]">
-      {/* Background gradient */}
-
+    <section className="relative min-h-screen overflow-hidden bg-[#1A120B]">
       {/* Glow behind cup */}
       <div className="absolute right-10 top-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-yellow-400/20 blur-[140px]" />
 
       {/* Main content */}
-      <div className="relative z-10 max-w-7xl mx-auto h-full grid md:grid-cols-[1.1fr_0.9fr] items-center px-8 md:px-12 lg:px-20">
+      <div className="relative z-10 max-w-7xl mx-auto min-h-screen grid md:grid-cols-2 items-center pl-10 pr-6 md:pl-20 md:pr-10 lg:pl-32 lg:pr-16">
         {/* Left text */}
-        <div className="text-white max-w-xl md:pl-6 lg:pl-12">
+        <div className="text-white max-w-xl">
           <p className="text-yellow-400 uppercase tracking-[0.3em] mb-4 text-sm md:text-base font-medium">
             Premium Coffee Experience
           </p>
