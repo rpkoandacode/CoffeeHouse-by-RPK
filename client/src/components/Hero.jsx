@@ -3,9 +3,8 @@ import CoffeeCup from './CoffeeCup';
 
 export default function Hero() {
   return (
-    <section className="relative h-screen overflow-hidden bg-[#1f140f]">
+    <section className="relative h-screen overflow-hidden bg-gradient-to-br from-[#1a120b] via-[#2b1d14] to-[#120b08]">
       {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#1f140f] via-[#2D1B16] to-[#4E342E]" />
 
       {/* Glow behind cup */}
       <div className="absolute right-10 top-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-yellow-400/20 blur-[140px]" />
@@ -38,7 +37,7 @@ export default function Hero() {
               Explore Menu
             </button>
 
-            <button className="border border-white/30 px-8 py-3 rounded-full hover:bg-white/10 transition duration-300">
+            <button className="border border-white/30 px-8 py-4 rounded-full text-white hover:bg-white/10 transition duration-300">
               Visit Us
             </button>
           </div>
@@ -46,7 +45,7 @@ export default function Hero() {
 
         {/* Right 3D cup */}
         <div className="h-[520px] md:h-[620px]">
-          <Canvas camera={{ position: [0, 0.15, 3], fov: 28 }}>
+          <Canvas camera={{ position: [0.72, 0.68, 0.05, 64], fov: 30 }}>
             <ambientLight intensity={0.6} />
 
             <directionalLight

@@ -29,7 +29,7 @@ export default function CoffeeCup() {
     <group ref={group} scale={0.7}>
       {/* Saucer */}
       <mesh position={[0, -0.58, 0]}>
-        <cylinderGeometry args={[0.95, 0.88, 0.06, 64]} />
+        <cylinderGeometry args={[0.72, 0.68, 0.05, 64]} />
         <meshStandardMaterial
           color="#EFE3D2"
           roughness={0.35}
@@ -47,27 +47,27 @@ export default function CoffeeCup() {
       </mesh>
 
       {/* Latte coffee */}
-      <mesh position={[0, 0.40, 0]}>
-        <cylinderGeometry args={[0.40, 0.40, 0.03, 64]} />
+      <mesh position={[0, 0.39, 0]}>
+        <cylinderGeometry args={[0.39, 0.39, 0.035, 64]} />
         <meshStandardMaterial
-          color="#7B4A2E"
+          color="#8A5A3B"
           roughness={0.8}
         />
       </mesh>
 
       {/* Latte foam */}
-      <mesh position={[0, 0.415, 0]}>
-        <cylinderGeometry args={[0.34, 0.34, 0.012, 64]} />
+      <mesh position={[0, 0.405, 0]}>
+        <cylinderGeometry args={[0.33, 0.33, 0.012, 64]} />
         <meshStandardMaterial
-          color="#F8F3EA"
+          color="#F8F2E8"
           roughness={0.95}
         />
       </mesh>
 
-      {/* Simple latte art */}
-      <mesh position={[0, 0.423, 0.02]} rotation={[-0.15, 0, 0]}>
-        <torusGeometry args={[0.10, 0.018, 16, 64, Math.PI]} />
-        <meshStandardMaterial color="#E8DCC8" roughness={0.9} />
+      {/* Latte art */}
+      <mesh position={[0, 0.412, 0.01]} rotation={[-0.2, 0, 0]}>
+        <torusGeometry args={[0.09, 0.015, 16, 64, Math.PI]} />
+        <meshStandardMaterial color="#E8D9C3" roughness={0.9} />
       </mesh>
 
       {/* Rim */}
