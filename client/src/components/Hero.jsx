@@ -45,7 +45,7 @@ export default function Hero() {
 
         {/* Right 3D cup */}
         <div className="h-[520px] md:h-[620px]">
-          <Canvas camera={{ position: [0.72, 0.68, 0.05, 64], fov: 30 }}>
+          <Canvas camera={{ position: [0, 0.15, 3], fov: 28 }}>
             <ambientLight intensity={0.6} />
 
             <directionalLight
