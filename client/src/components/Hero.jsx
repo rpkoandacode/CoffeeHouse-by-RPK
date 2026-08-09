@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Canvas } from '@react-three/fiber';
 import CoffeeCup from './CoffeeCup';
 
@@ -35,16 +36,12 @@ export default function Hero() {
 
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center lg:justify-start">
             
-            <button
-              onClick={() =>
-                document.getElementById('menu')?.scrollIntoView({
-                  behavior: 'smooth',
-                })
-              }
-              className="w-full sm:w-auto sm:min-w-[200px] bg-yellow-500 text-black px-8 sm:px-10 py-4 sm:py-5 rounded-full font-semibold text-base sm:text-lg shadow-lg shadow-yellow-500/30 transition-all duration-300 hover:bg-yellow-400 hover:shadow-yellow-400/50 hover:-translate-y-0.5 active:translate-y-0 text-center"
-            >
-              Explore Menu
-            </button>
+            <Link
+  to="/menu"
+  className="w-full sm:w-auto sm:min-w-[200px] bg-yellow-500 text-black px-8 sm:px-10 py-4 sm:py-5 rounded-full font-semibold text-base sm:text-lg shadow-lg shadow-yellow-500/30 transition-all duration-300 hover:bg-yellow-400 hover:shadow-yellow-400/50 hover:-translate-y-0.5 active:translate-y-0 text-center"
+>
+  Explore Menu
+</Link>
 
             <button className="w-full sm:w-auto sm:min-w-[200px] border border-white/30 text-white px-8 sm:px-10 py-4 sm:py-5 rounded-full font-medium text-base sm:text-lg backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-black hover:border-white hover:-translate-y-0.5 active:translate-y-0">
               Visit Us
