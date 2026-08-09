@@ -1,8 +1,8 @@
-import { useFrame } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { useRef } from 'react';
 import * as THREE from 'three';
 
-export default function CoffeeCup() {
+function CoffeeCup() {
   const group = useRef();
 
   useFrame((state) => {
@@ -30,10 +30,7 @@ export default function CoffeeCup() {
       {/* Saucer */}
       <mesh position={[0, -0.58, 0]}>
         <cylinderGeometry args={[0.72, 0.68, 0.05, 64]} />
-        <meshStandardMaterial
-          color="#EFE3D2"
-          roughness={0.35}
-        />
+        <meshStandardMaterial color="#EFE3D2" roughness={0.35} />
       </mesh>
 
       {/* Cup body */}
@@ -41,27 +38,25 @@ export default function CoffeeCup() {
         <cylinderGeometry args={[0.46, 0.40, 0.85, 64]} />
         <meshStandardMaterial
           color="#F6E9D8"
-          roughness={0.18}
-          metalness={0.02}
+          roughness={0.25}
+          metalness={0.05}
         />
       </mesh>
 
       {/* Latte coffee */}
       <mesh position={[0, 0.39, 0]}>
-        <cylinderGeometry args={[0.39, 0.39, 0.035, 64]} />
+        <cylinderGeometry args={[0.39, 0.39, 0.06, 64]} />
         <meshStandardMaterial
           color="#8A5A3B"
           roughness={0.8}
+          metalness={0.1}
         />
       </mesh>
 
       {/* Latte foam */}
       <mesh position={[0, 0.405, 0]}>
-        <cylinderGeometry args={[0.33, 0.33, 0.012, 64]} />
-        <meshStandardMaterial
-          color="#F8F2E8"
-          roughness={0.95}
-        />
+        <cylinderGeometry args={[0.33, 0.33, 0.015, 64]} />
+        <meshStandardMaterial color="#F8F2E8" roughness={0.95} />
       </mesh>
 
       {/* Latte art */}
@@ -71,28 +66,29 @@ export default function CoffeeCup() {
       </mesh>
 
       {/* Rim */}
-      <mesh
-        rotation={[Math.PI / 2, 0, 0]}
-        position={[0, 0.43, 0]}
-      >
+      <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, 0.43, 0]}>
         <torusGeometry args={[0.43, 0.018, 16, 64]} />
-        <meshStandardMaterial
-          color="#E9DCCB"
-          roughness={0.2}
-        />
+        <meshStandardMaterial color="#E9DCCB" roughness={0.2} />
       </mesh>
 
-      {/* Realistic handle */}
-      <mesh
-        position={[0.48, 0.02, 0]}
-        rotation={[0, 0, Math.PI / 2]}
-      >
+      {/* Handle */}
+      <mesh position={[0.48, 0.02, 0]} rotation={[0, 0, Math.PI / 2]}>
         <torusGeometry args={[0.15, 0.03, 16, 64]} />
-        <meshStandardMaterial
-          color="#F6E9D8"
-          roughness={0.18}
-        />
+        <meshStandardMaterial color="#F6E9D8" roughness={0.25} />
       </mesh>
     </group>
+  );
+}
+
+export default function Scene() {
+  return (
+    <Canvas camera={{ position: [0, 1.5, 3] }}>
+      {/* Lighting */}
+      <ambientLight intensity={0.6} />
+      <directionalLight position={[3, 5, 2]} intensity={1.2} />
+      <pointLight position={[-3, -2, -3]} intensity={0.5} />
+
+      <CoffeeCup />
+    </Canvas>
   );
 }

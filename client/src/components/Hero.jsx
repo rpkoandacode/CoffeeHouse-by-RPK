@@ -10,36 +10,38 @@ export default function Hero() {
       {/* Main content */}
       <div className="relative z-10 max-w-7xl mx-auto min-h-screen grid md:grid-cols-2 items-center pl-10 pr-6 md:pl-20 md:pr-10 lg:pl-32 lg:pr-16">
         {/* Left text */}
-        <div className="text-white max-w-xl">
-          <p className="text-yellow-400 uppercase tracking-[0.3em] mb-4 text-sm md:text-base font-medium">
-            Premium Coffee Experience
-          </p>
+        <div className="relative z-10 max-w-7xl mx-auto h-full grid md:grid-cols-2 items-center px-10 md:px-16 lg:px-24">
+  <div className="text-white max-w-xl">
+    <p className="text-yellow-400 uppercase tracking-[0.35em] mb-5 text-sm font-medium">
+      Premium Coffee Experience
+    </p>
 
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] mb-6">
-            Brew
-            <br />
-            Happiness,
-            <br />
-            One Cup
-            <br />
-            at a Time.
-          </h1>
+    <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] mb-6">
+      Brew Happiness,
+      <br />
+      One Cup at a Time.
+    </h1>
 
-          <p className="text-lg md:text-xl text-white/75 max-w-lg mb-10 leading-8">
-            Freshly brewed coffee crafted with passion, warmth, and the finest
-            beans for every moment.
-          </p>
+    <p className="text-lg text-white/70 leading-8 mb-10">
+      Freshly brewed coffee crafted with passion, warmth, and the finest beans
+      for every moment.
+    </p>
 
-          <div className="flex flex-wrap gap-4">
-            <button className="bg-yellow-500 text-black px-8 py-3 rounded-full font-semibold hover:scale-105 transition duration-300">
-              Explore Menu
-            </button>
+    <div className="flex gap-5">
+      <button className="bg-yellow-500 text-black px-8 py-4 rounded-full font-semibold hover:scale-105 transition">
+        Explore Menu
+      </button>
 
-            <button className="border border-white/30 px-8 py-3 rounded-full text-white hover:bg-white/10 transition duration-300">
-              Visit Us
-            </button>
-          </div>
-        </div>
+      <button className="border border-white/30 px-8 py-4 rounded-full hover:bg-white/10 transition">
+        Visit Us
+      </button>
+    </div>
+  </div>
+
+  <div className="h-[560px]">
+    {/* Canvas here */}
+  </div>
+</div>
 
         {/* Right 3D cup */}
         <div className="h-[520px] md:h-[620px]">
