@@ -34,7 +34,15 @@ export default function Hero() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center lg:justify-start">
-            <button className="w-full sm:w-auto sm:min-w-[200px] bg-yellow-500 text-black px-8 sm:px-10 py-4 sm:py-5 rounded-full font-semibold text-base sm:text-lg shadow-lg shadow-yellow-500/30 transition-all duration-300 hover:bg-yellow-400 hover:shadow-yellow-400/50 hover:-translate-y-0.5 active:translate-y-0">
+            
+            <button
+              onClick={() =>
+                document.getElementById('menu')?.scrollIntoView({
+                  behavior: 'smooth',
+                })
+              }
+              className="w-full sm:w-auto sm:min-w-[200px] bg-yellow-500 text-black px-8 sm:px-10 py-4 sm:py-5 rounded-full font-semibold text-base sm:text-lg shadow-lg shadow-yellow-500/30 transition-all duration-300 hover:bg-yellow-400 hover:shadow-yellow-400/50 hover:-translate-y-0.5 active:translate-y-0 text-center"
+            >
               Explore Menu
             </button>
 
