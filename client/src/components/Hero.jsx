@@ -10,10 +10,10 @@ export default function Hero() {
       <div className="absolute right-10 top-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-yellow-400/20 blur-[140px]" />
 
       {/* Main content */}
-      <div className="relative z-10 max-w-7xl mx-auto h-full grid md:grid-cols-2 items-center px-8 md:px-12 lg:px-20">
+      <div className="relative z-10 max-w-7xl mx-auto h-full grid md:grid-cols-[1.1fr_0.9fr] items-center px-8 md:px-12 lg:px-20">
         {/* Left text */}
-        <div className="text-white">
-          <p className="text-yellow-400 uppercase tracking-[0.35em] mb-5 text-sm font-medium">
+        <div className="text-white max-w-xl md:pl-6 lg:pl-12">
+          <p className="text-yellow-400 uppercase tracking-[0.3em] mb-4 text-sm md:text-base font-medium">
             Premium Coffee Experience
           </p>
 
@@ -27,7 +27,7 @@ export default function Hero() {
             at a Time.
           </h1>
 
-          <p className="text-lg text-white/75 max-w-md mb-10 leading-8">
+          <p className="text-lg md:text-xl text-white/75 max-w-lg mb-10 leading-8">
             Freshly brewed coffee crafted with passion, warmth, and the finest
             beans for every moment.
           </p>
@@ -37,7 +37,7 @@ export default function Hero() {
               Explore Menu
             </button>
 
-            <button className="border border-white/30 px-8 py-4 rounded-full text-white hover:bg-white/10 transition duration-300">
+            <button className="border border-white/30 px-8 py-3 rounded-full text-white hover:bg-white/10 transition duration-300">
               Visit Us
             </button>
           </div>
