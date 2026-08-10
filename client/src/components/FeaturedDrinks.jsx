@@ -1,6 +1,4 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-
+import { useEffect, useRef, useState } from 'react';
 import espresso from '../assets/menu/espresso.jpg';
 import americano from '../assets/menu/americano.jpg';
 import cappuccino from '../assets/menu/cappuccino.jpg';
@@ -10,163 +8,219 @@ import mocha from '../assets/menu/mocha.jpg';
 import matcha from '../assets/menu/matcha.jpg';
 import chocolate from '../assets/menu/chocolate.jpg';
 
-const menuItems = [
+// ---------------------------------------------------------------------------
+// Data
+// ---------------------------------------------------------------------------
+const MENU_ITEMS = [
   {
     name: 'Espresso',
-    category: 'Coffee',
     price: 'Rp 35.000',
     image: espresso,
-    description: 'Rich and concentrated espresso with a bold, aromatic finish.',
+    description: 'Rich and concentrated, pulled to order with a bold, aromatic finish.',
   },
   {
     name: 'Americano',
-    category: 'Coffee',
     price: 'Rp 40.000',
     image: americano,
-    description: 'Smooth espresso balanced with hot water for a clean finish.',
+    description: 'Smooth double espresso balanced with hot water for a clean, rounded cup.',
   },
   {
     name: 'Cappuccino',
-    category: 'Coffee',
     price: 'Rp 52.000',
     image: cappuccino,
-    description: 'Creamy steamed milk and velvety foam over fresh espresso.',
+    description: 'Equal parts espresso, steamed milk, and airy foam — a café classic.',
   },
   {
     name: 'Caffè Latte',
-    category: 'Coffee',
     price: 'Rp 55.000',
     image: latte,
-    description: 'Silky steamed milk with a balanced espresso base.',
+    description: 'Silky steamed milk poured over a velvety double espresso base.',
   },
   {
     name: 'Flat White',
-    category: 'Coffee',
     price: 'Rp 58.000',
     image: flatwhite,
-    description: 'Velvety microfoam with a stronger coffee character.',
+    description: 'Velvety microfoam with a stronger, more pronounced coffee character.',
   },
   {
     name: 'Mocha',
-    category: 'Coffee',
     price: 'Rp 62.000',
     image: mocha,
-    description: 'Premium chocolate blended with rich espresso and milk.',
+    description: 'Premium dark cocoa blended with rich espresso and steamed milk.',
   },
   {
     name: 'Matcha Latte',
-    category: 'Non-Coffee',
     price: 'Rp 59.000',
     image: matcha,
-    description: 'Ceremonial matcha whisked with creamy steamed milk.',
+    description: 'Ceremonial-grade matcha whisked smooth with creamy steamed milk.',
   },
   {
     name: 'Belgian Chocolate',
-    category: 'Non-Coffee',
     price: 'Rp 57.000',
     image: chocolate,
-    description: 'Decadent Belgian chocolate with a smooth finish.',
+    description: 'Decadent Belgian chocolate melted into a warm, comforting finish.',
   },
 ];
 
-const categories = ['Coffee', 'Non-Coffee', 'Food'];
+// ---------------------------------------------------------------------------
+// Signature glyph — a simple line-art espresso cup, used sparingly as the
+// section's one recurring visual mark (header divider + corner seal).
+// ---------------------------------------------------------------------------
+function CupMark({ className = '' }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" aria-hidden="true">
+      <path
+        d="M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V9Z"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M17 10.5h1.4a2.5 2.5 0 1 1 0 5H17"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+      />
+      <path
+        d="M8.3 5.4c-.6-.7-.6-1.5 0-2.2M11.7 5.4c-.6-.7-.6-1.5 0-2.2"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
 
-export default function FeaturedDrinks() {
-  const [activeCategory, setActiveCategory] = useState('Coffee');
+// ---------------------------------------------------------------------------
+// Reveals its children once they scroll into view, then stays put.
+// ---------------------------------------------------------------------------
+function useRevealOnScroll(threshold = 0.18) {
+  const ref = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
 
-  const filtered =
-    activeCategory === 'Food'
-      ? []
-      : menuItems.filter((item) => item.category === activeCategory);
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return undefined;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold, rootMargin: '0px 0px -64px 0px' }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [threshold]);
+
+  return [ref, isVisible];
+}
+
+function MenuCard({ item, staggerIndex }) {
+  const [ref, isVisible] = useRevealOnScroll();
 
   return (
-    <section className="bg-[#F8F5F2] pt-36 pb-24">
-      <div className="max-w-6xl mx-auto px-6 md:px-10 lg:px-12">
-        {/* Header */}
-        <div className="mb-16">
-          <p className="text-[#A67C52] uppercase tracking-[0.28em] text-sm mb-4">
-            Coffee House
+    <article
+      ref={ref}
+      style={{ transitionDelay: isVisible ? `${(staggerIndex % 3) * 100}ms` : '0ms' }}
+      className={[
+        'group relative flex flex-col overflow-hidden rounded-[24px] bg-[#FBF8F2]',
+        'shadow-[0_18px_40px_-24px_rgba(36,23,18,0.35)]',
+        'transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]',
+        'hover:-translate-y-2.5 hover:shadow-[0_34px_70px_-24px_rgba(36,23,18,0.45)]',
+        isVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0',
+      ].join(' ')}
+    >
+      {/* Portrait image with name overlaid at the base */}
+      <div className="relative aspect-[3/4] overflow-hidden">
+        <img
+          src={item.image}
+          alt={item.name}
+          loading="lazy"
+          className="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.08]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1B120D]/85 via-[#1B120D]/15 to-transparent" />
+
+        {/* Corner seal — decorative signature mark, not a price */}
+        <div className="absolute -right-2 -top-2 flex h-12 w-12 -rotate-6 items-center justify-center rounded-full border border-white/50 bg-white/90 shadow-md backdrop-blur-sm">
+          <CupMark className="h-5 w-5 text-[#B5652E]" />
+        </div>
+
+        <h3
+          className="absolute inset-x-0 bottom-0 p-6 text-3xl italic text-white"
+          style={{ fontFamily: "'Newsreader', serif" }}
+        >
+          {item.name}
+        </h3>
+      </div>
+
+      {/* Content */}
+      <div className="flex flex-1 flex-col p-6 lg:p-7">
+        <p className="mb-6 min-h-[3.6rem] text-sm leading-6 text-[#6F5B4E]">
+          {item.description}
+        </p>
+
+        <div className="mb-6 mt-auto flex items-baseline justify-between border-t border-[#E7DCC8] pt-4">
+          <span className="text-[11px] uppercase tracking-[0.18em] text-[#B5652E]">
+            Starting from
+          </span>
+          <span className="text-lg font-semibold text-[#241712]">{item.price}</span>
+        </div>
+
+        <button
+          type="button"
+          className="w-full rounded-full border border-[#241712] py-3.5 text-sm font-medium tracking-wide text-[#241712] transition-colors duration-300 group-hover:bg-[#241712] group-hover:text-white active:scale-[0.98]"
+        >
+          Select specifications
+        </button>
+      </div>
+    </article>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Section
+// ---------------------------------------------------------------------------
+export default function FeaturedDrinks() {
+  return (
+    <section
+      id="menu"
+      className="bg-[#F6F1E7] py-24 sm:py-28 lg:py-32"
+      style={{ paddingLeft: 'clamp(1.5rem, 6vw, 6rem)', paddingRight: 'clamp(1.5rem, 6vw, 6rem)' }}
+    >
+      <div className="mx-auto max-w-7xl">
+        {/* Heading */}
+        <div className="mb-16 text-center lg:mb-20">
+          <p className="mb-4 text-sm uppercase tracking-[0.35em] text-[#B5652E]">
+            The Menu
           </p>
 
           <h2
-            className="text-4xl md:text-5xl text-[#2D1B16] mb-5"
-            style={{ fontFamily: "'Fraunces', serif" }}
+            className="mb-6 text-4xl italic text-[#241712] sm:text-5xl"
+            style={{ fontFamily: "'Newsreader', serif" }}
           >
-            Featured drinks
+            Featured Drinks
           </h2>
 
-          <p className="max-w-2xl text-[#6B5B53] text-lg leading-8">
-            Handcrafted coffee and specialty beverages prepared with carefully
-            selected beans and artisanal ingredients.
+          <div className="mb-8 flex items-center justify-center gap-3">
+            <span className="h-px w-12 bg-[#D9C7AE]" />
+            <CupMark className="h-4 w-4 text-[#B5652E]" />
+            <span className="h-px w-12 bg-[#D9C7AE]" />
+          </div>
+
+          <p className="mx-auto max-w-2xl text-lg leading-8 text-[#6F5B4E]">
+            A short list of what we do best — pulled to order, poured with
+            care, and finished with premium beans in every cup.
           </p>
         </div>
 
-        {/* Categories */}
-        <div className="flex flex-wrap gap-3 mb-14">
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setActiveCategory(category)}
-              className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
-                activeCategory === category
-                  ? 'bg-[#2D1B16] text-white'
-                  : 'border border-[#D8C3A5] text-[#2D1B16] hover:bg-[#F1E9DF]'
-              }`}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
-
-        {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
-          {filtered.map((item, index) => (
-            <motion.article
-              key={item.name}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{
-                duration: 0.6,
-                delay: index * 0.08,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className="group bg-white rounded-[24px] overflow-hidden border border-[#E9DED2] shadow-[0_8px_24px_rgba(45,27,22,0.08)] hover:-translate-y-2 hover:shadow-[0_24px_48px_rgba(45,27,22,0.16)] transition-all duration-500"
-            >
-              <div className="overflow-hidden">
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="w-full h-72 object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-              </div>
-
-              <div className="p-7 flex flex-col min-h-[250px]">
-                <h3
-                  className="text-2xl text-[#2D1B16] mb-3"
-                  style={{ fontFamily: "'Fraunces', serif" }}
-                >
-                  {item.name}
-                </h3>
-
-                <p className="text-[#6B5B53] leading-7 mb-6 flex-1">
-                  {item.description}
-                </p>
-
-                <div className="mb-6">
-                  <p className="text-sm text-[#8B735F] mb-1">
-                    Starting from
-                  </p>
-                  <p className="text-xl font-semibold text-[#A67C52]">
-                    {item.price}
-                  </p>
-                </div>
-
-                <button className="w-full bg-[#2D1B16] text-white py-4 rounded-2xl font-medium text-base transition-all duration-300 hover:bg-[#1F1510]">
-                  Select specifications
-                </button>
-              </div>
-            </motion.article>
+        {/* Menu grid */}
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
+          {MENU_ITEMS.map((item, index) => (
+            <MenuCard key={item.name} item={item} staggerIndex={index} />
           ))}
         </div>
       </div>
